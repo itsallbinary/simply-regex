@@ -6,4 +6,6 @@ License - Apache 2.0
 
 Status - Project is still in progress. Once complete, this will be available in public maven repository. Keep checking for updates.
 
+User Guide - http://itsallbinary.com/project-simply-regex/simply-regex-user-guide/
+
 More Details - Refer to http://itsallbinary.com/project-simply-regex/ for more details
