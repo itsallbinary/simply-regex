@@ -1,7 +1,7 @@
 package com.itsallbinary.simplyregex;
 
-import static com.itsallbinary.simplyregex.SimpleRegexDefinitions.charThatIs;
-import static com.itsallbinary.simplyregex.SimpleRegexDefinitions.groupHaving;
+import static com.itsallbinary.simplyregex.SimpleRegex.charThatIs;
+import static com.itsallbinary.simplyregex.SimpleRegex.groupHaving;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -34,45 +34,23 @@ public class SimpleRegexMatchesTest {
 				{ SimpleRegex.regex().startingWith().oneOfTheCharacters('d', 'e', 'f').build(), "abcdef", false },
 				{ SimpleRegex.regex().startingWith().oneOfTheCharacters('d', 'e', 'f').build(), "abcg", false },
 
-				// {
-				// SimpleRegex.pattern().startingWith().oneOfTheCharacters(charBetween('a',
-				// 'c'), exactChar('p'))
-				// .build(), "a",
-				// true },
-				// {
-				// SimpleRegex.pattern().startingWith().oneOfTheCharacters(charBetween('a',
-				// 'c'), exactChar('p'))
-				// .build(), "b", true },
-				// {
-				// SimpleRegex.pattern().startingWith().oneOfTheCharacters(charBetween('a',
-				// 'c'), exactChar('p'))
-				// .build(), "c", true },
-				// {
-				// SimpleRegex.pattern().startingWith().oneOfTheCharacters(charBetween('a',
-				// 'c'), exactChar('p'))
-				// .build(), "p", true },
-				// {
-				// SimpleRegex.pattern().startingWith().oneOfTheCharacters(charBetween('a',
-				// 'c'), exactChar('p'))
-				// .build(), "z", false },
-
 				{ SimpleRegex.regex().startingWith()
-						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build())
-						.build(), "a", true },
-				{ SimpleRegex.regex().startingWith()
-						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build())
-						.build(), "b",
+						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "a",
 						true },
 				{ SimpleRegex.regex().startingWith()
-						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build())
-						.build(), "c",
+						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(),
+						"b",
 						true },
 				{ SimpleRegex.regex().startingWith()
-						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build())
-						.build(), "p", true },
+						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(),
+						"c",
+						true },
 				{ SimpleRegex.regex().startingWith()
-						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build())
-						.build(), "z", false },
+						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "p",
+						true },
+				{ SimpleRegex.regex().startingWith()
+						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "z",
+						false },
 
 				{ SimpleRegex.regex().startingWith()
 						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "a",
@@ -92,109 +70,12 @@ public class SimpleRegexMatchesTest {
 						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "z",
 						false },
 
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf('a').build(), "", true },
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf('a').build(), "a", true },
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf('a').build(), "aa", true },
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf('a').build(), "aaaaaaaa", true },
-
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf(charThatIs().exact('a').build()).build(), "",
-						true },
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf(charThatIs().exact('a').build()).build(), "a",
-						true },
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf(charThatIs().exact('a').build()).build(), "aa",
-						true },
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf(charThatIs().between('a', 'c').build()).build(),
-						"aaa", true },
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf(charThatIs().between('a', 'c').build()).build(),
-						"bbb", true },
-				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf(charThatIs().between('a', 'c').build()).build(),
-						"ccc", true },
 				{ SimpleRegex.regex().anywhereInText()
-						.zeroOrMoreOf(charThatIs().between('a', 'c').or().exact('r').build()).build(), "ccc", true },
+						.oneOrMoreOf(groupHaving().exactString("abc").then().anyDigitChar().build()).build(),
+						"abc1abc2", true },
 				{ SimpleRegex.regex().anywhereInText()
-						.zeroOrMoreOf(charThatIs().between('a', 'c').or().exact('r').build()).build(), "rrr", true },
-
-				// {
-				// SimpleRegex.pattern().anywhereInText().zeroOrMoreOf(exactChar('a')).build(),
-				// "", true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().zeroOrMoreOf(exactChar('a')).build(),
-				// "a", true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().zeroOrMoreOf(exactChar('a')).build(),
-				// "aa", true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().zeroOrMoreOf(charBetween('a',
-				// 'c')).build(), "aaa", true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().zeroOrMoreOf(charBetween('a',
-				// 'c')).build(), "bbb", true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().zeroOrMoreOf(charBetween('a',
-				// 'c')).build(), "ccc", true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().zeroOrMoreOf(charBetween('a',
-				// 'c'), exactChar('r')).build(),
-				// "ccc", true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().zeroOrMoreOf(charBetween('a',
-				// 'c'), exactChar('r')).build(),
-				// "rrr", true },
-
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf('a').build(), "", false },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf('a').build(), "a", true },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf('a').build(), "aa", true },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf('a').build(), "aaaaaaaa", true },
-
-				// {
-				// SimpleRegex.pattern().anywhereInText().oneOrMoreOf(Character.exactChar('a')).build(),
-				// "", false },
-				// {
-				// SimpleRegex.pattern().anywhereInText().oneOrMoreOf(Character.exactChar('a')).build(),
-				// "a", true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().oneOrMoreOf(Character.exactChar('a')).build(),
-				// "aa", true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().oneOrMoreOf(Character.charBetween('a',
-				// 'c')).build(), "aaa",
-				// true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().oneOrMoreOf(Character.charBetween('a',
-				// 'c')).build(), "bbb",
-				// true },
-				// {
-				// SimpleRegex.pattern().anywhereInText().oneOrMoreOf(Character.charBetween('a',
-				// 'c')).build(), "ccc",
-				// true },
-
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf(charThatIs().exact('a').build()).build(), "",
+						.oneOrMoreOf(groupHaving().exactString("abc").then().anyDigitChar().build()).build(), "abc1zzz",
 						false },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf(charThatIs().exact('a').build()).build(), "a",
-						true },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf(charThatIs().exact('a').build()).build(), "aa",
-						true },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf(charThatIs().between('a', 'c').build()).build(),
-						"aaa", true },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf(charThatIs().between('a', 'c').build()).build(),
-						"bbb", true },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf(charThatIs().between('a', 'c').build()).build(),
-						"ccc", true },
-				{ SimpleRegex.regex().anywhereInText()
-						.oneOrMoreOf(charThatIs().between('a', 'c').or().exact('r').build()).build(), "bbb", true },
-				{ SimpleRegex.regex().anywhereInText()
-						.oneOrMoreOf(charThatIs().between('a', 'c').or().exact('r').build()).build(), "rrr", true },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf(charThatIs().anyDigitChar().build()).build(),
-						"111", true },
-				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf(charThatIs().anyDigitChar().build()).build(),
-						"aaa", false },
-
-				{ SimpleRegex.regex().anywhereInText()
-						.oneOrMoreOf(groupHaving().exactString("abc").then().anyDigitChar().build())
-						.build(), "abc1abc2", true },
-				{ SimpleRegex.regex().anywhereInText()
-							.oneOrMoreOf(groupHaving().exactString("abc").then().anyDigitChar().build())
-							.build(), "abc1zzz", false },
 
 				{ SimpleRegex.regex().startingWith().oneOfTheStrings("abc", "def").build(), "abc", true },
 				{ SimpleRegex.regex().startingWith().oneOfTheStrings("abc", "def").build(), "def", true },
@@ -316,10 +197,8 @@ public class SimpleRegexMatchesTest {
 				{ SimpleRegex.regex().startingWith().formFeedChar().build(), "r", false },
 				{ SimpleRegex.regex().startingWith().formFeedChar().build(), "8", false },
 
-				{ SimpleRegex.regex().startingWith().exactString("abc").or().exactString("def").build(), "abc",
-						true },
-				{ SimpleRegex.regex().startingWith().exactString("abc").or().exactString("def").build(), "def",
-						true },
+				{ SimpleRegex.regex().startingWith().exactString("abc").or().exactString("def").build(), "abc", true },
+				{ SimpleRegex.regex().startingWith().exactString("abc").or().exactString("def").build(), "def", true },
 				{ SimpleRegex.regex().startingWith().exactString("abc").or().exactString("def").build(), "abcdef",
 						false } });
 	}

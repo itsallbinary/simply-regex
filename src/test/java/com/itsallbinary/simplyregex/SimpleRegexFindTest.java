@@ -1,6 +1,6 @@
 package com.itsallbinary.simplyregex;
 
-import static com.itsallbinary.simplyregex.SimpleRegexDefinitions.groupHaving;
+import static com.itsallbinary.simplyregex.SimpleRegex.groupHaving;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -33,11 +33,23 @@ public class SimpleRegexFindTest {
 				{ SimpleRegex.regex().anywhereInText().exactString("a").then().anyString().build(), "abc", true },
 				{ SimpleRegex.regex().anywhereInText().exactString("a").then().anyString().build(), "zzzabc", true },
 
+				{ SimpleRegex.regex().anywhereInText().exactString("abc").then()
+						.group(groupHaving().exactString("z").then().anyDigitChar().build()).build(), "abcz9", true },
+				{ SimpleRegex.regex().anywhereInText().exactString("abc").then()
+						.group(groupHaving().exactString("z").then().anyDigitChar().build()).build(), "abc", false },
+
 				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf('a').build(), "", true },
 				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf('a').build(), "a", true },
 				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf('a').build(), "aa", true },
 				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf('a').build(), "ba", true },
 				{ SimpleRegex.regex().anywhereInText().zeroOrMoreOf('a').build(), "b", true },
+
+				{ SimpleRegex.regex().anywhereInText().anyDigitChar().build(), "1", true },
+				{ SimpleRegex.regex().anywhereInText().anyDigitChar().build(), "0", true },
+				{ SimpleRegex.regex().anywhereInText().anyDigitChar().build(), "6", true },
+				{ SimpleRegex.regex().anywhereInText().anyDigitChar().build(), "9", true },
+				{ SimpleRegex.regex().anywhereInText().anyDigitChar().build(), "a", false },
+				{ SimpleRegex.regex().anywhereInText().anyDigitChar().build(), ",", false },
 
 				{ SimpleRegex.regex().anywhereInText().oneOrMoreOf(
 						groupHaving().exactString("abc").then().anyDigitChar().build()).build(), "abc1abc2", true },

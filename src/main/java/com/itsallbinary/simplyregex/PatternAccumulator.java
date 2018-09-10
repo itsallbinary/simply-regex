@@ -1,6 +1,5 @@
 package com.itsallbinary.simplyregex;
 
-import static com.itsallbinary.simplyregex.SimpleRegexDefinitions.charThatIs;
 import static com.itsallbinary.simplyregex.utils.RegexUtils.quoteIfRequired;
 
 import java.util.Arrays;
@@ -28,6 +27,10 @@ public abstract class PatternAccumulator<O> {
 		this.linkingPatternAccumulator = new LinkingPatternAccumulator();
 		// this.builder = builder;
 	}
+
+	/*
+	 * ----------------- Basic Methods ------------------
+	 */
 
 	/**
 	 * Pattern to match exact string.
@@ -90,94 +93,6 @@ public abstract class PatternAccumulator<O> {
 		return linkingPatternAccumulator;
 	}
 
-	private String zeroOrMoreOf(String patternString) {
-		return patternString + "*";
-	}
-
-	/**
-	 * Pattern to match zero or more occurrences of give character. Regex
-	 * quantifier "*" is used for this.
-	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
-	 * 
-	 * @param character
-	 * @return
-	 */
-	public LinkingPatternAccumulator zeroOrMoreOf(char character) {
-		regexHolder.addNext(zeroOrMoreOf(quoteIfRequired(new String(new char[] { character }))));
-		return linkingPatternAccumulator;
-	}
-
-	/**
-	 * Pattern to match zero or more occurrences of given character definition.
-	 * Regex quantifier "*" is used for this.
-	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
-	 * 
-	 * @param character
-	 * @return
-	 */
-	public LinkingPatternAccumulator zeroOrMoreOf(CharacterDefinition characterDefinition) {
-		regexHolder.addNext(zeroOrMoreOf(characterDefinition.buildChar()));
-		return linkingPatternAccumulator;
-	}
-
-	/**
-	 * Pattern to match zero or more occurrences of given group definition.
-	 * Regex quantifier "*" is used for this.
-	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
-	 * 
-	 * @param character
-	 * @return
-	 */
-	public LinkingPatternAccumulator zeroOrMoreOf(GroupDefinition groupDefinition) {
-		regexHolder.addNext(zeroOrMoreOf(groupDefinition.buildGroup()));
-		return linkingPatternAccumulator;
-	}
-
-	private String oneOrMoreOf(String patternString) {
-		return patternString + "+";
-	}
-
-	/**
-	 * Pattern to match one or more occurrences of give character. Regex
-	 * quantifier "+" is used for this.
-	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
-	 * 
-	 * @param character
-	 * @return
-	 */
-	public LinkingPatternAccumulator oneOrMoreOf(char character) {
-		regexHolder.addNext(oneOrMoreOf(quoteIfRequired(new String(new char[] { character }))));
-		return linkingPatternAccumulator;
-	}
-
-	/**
-	 * Pattern to match one or more occurrences of give character definition.
-	 * Regex quantifier "+" is used for this.
-	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
-	 * 
-	 * @param character
-	 * @return
-	 */
-	public LinkingPatternAccumulator oneOrMoreOf(CharacterDefinition characterDefinition) {
-		regexHolder.addNext(oneOrMoreOf(characterDefinition.buildChar()));
-		return linkingPatternAccumulator;
-	}
-
-	public LinkingPatternAccumulator oneOrMoreOf(GroupDefinition groupDefinition) {
-		regexHolder.addNext(oneOrMoreOf(groupDefinition.buildGroup()));
-		return linkingPatternAccumulator;
-	}
-
 	public LinkingPatternAccumulator oneOfTheStrings(String... strings) {
 
 		regexHolder.addNext(
@@ -196,6 +111,10 @@ public abstract class PatternAccumulator<O> {
 		regexHolder.addNext("[^" + quoteIfRequired(new String(characters)) + "]");
 		return linkingPatternAccumulator;
 	}
+
+	/*
+	 * ----------------- Special Character wild cards ------------------
+	 */
 
 	public LinkingPatternAccumulator anyCharacter() {
 
@@ -274,10 +193,304 @@ public abstract class PatternAccumulator<O> {
 		return linkingPatternAccumulator;
 	}
 
+	/*
+	 * ----------------- Definition Methods ------------------
+	 */
+
 	public LinkingPatternAccumulator group(GroupDefinition groupDefinition) {
-		regexHolder.addNext("(" + groupDefinition.buildGroup() + ")");
+		regexHolder.addNext(groupDefinition.buildGroup());
 		return linkingPatternAccumulator;
 	}
+
+	/*
+	 * ----------------- Quantifier Methods ------------------
+	 */
+
+	/**
+	 * Pattern to match zero or more occurrences of give character. Regex greedy
+	 * quantifier "*" is used for this.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public LinkingPatternAccumulator zeroOrMoreOf(char character) {
+		regexHolder.addNext(Quantifier.GREEDY.zeroOrMoreOf(character));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match zero or more occurrences of given character definition.
+	 * Regex greedy quantifier "*" is used for this.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public LinkingPatternAccumulator zeroOrMoreOf(CharacterDefinition characterDefinition) {
+		regexHolder.addNext(Quantifier.GREEDY.zeroOrMoreOf(characterDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match zero or more occurrences of given group definition.
+	 * Regex greedy quantifier "*" is used for this.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public LinkingPatternAccumulator zeroOrMoreOf(GroupDefinition groupDefinition) {
+		regexHolder.addNext(Quantifier.GREEDY.zeroOrMoreOf(groupDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match zero or more occurrences of give character.
+	 * {@link Quantifier} parameter passed will determine the regex created.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @param quantifier
+	 * @return
+	 */
+	public LinkingPatternAccumulator zeroOrMoreOf(Quantifier quantifier, char character) {
+		regexHolder.addNext(quantifier.zeroOrMoreOf(character));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match zero or more occurrences of given character definition.
+	 * {@link Quantifier} parameter passed will determine the regex created.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @param quantifier
+	 * @return
+	 */
+	public LinkingPatternAccumulator zeroOrMoreOf(Quantifier quantifier, CharacterDefinition characterDefinition) {
+		regexHolder.addNext(quantifier.zeroOrMoreOf(characterDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match zero or more occurrences of given group definition.
+	 * {@link Quantifier} parameter passed will determine the regex created.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @param quantifier
+	 * @return
+	 */
+	public LinkingPatternAccumulator zeroOrMoreOf(Quantifier quantifier, GroupDefinition groupDefinition) {
+		regexHolder.addNext(quantifier.zeroOrMoreOf(groupDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one or more occurrences of give character. Regex greedy
+	 * quantifier "+" is used for this.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public LinkingPatternAccumulator oneOrMoreOf(char character) {
+		regexHolder.addNext(Quantifier.GREEDY.oneOrMoreOf(character));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one or more occurrences of give character definition.
+	 * Regex greedy quantifier "+" is used for this.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public LinkingPatternAccumulator oneOrMoreOf(CharacterDefinition characterDefinition) {
+		regexHolder.addNext(Quantifier.GREEDY.oneOrMoreOf(characterDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one or more occurrences of give group definition. Regex
+	 * greedy quantifier "+" is used for this.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public LinkingPatternAccumulator oneOrMoreOf(GroupDefinition groupDefinition) {
+		regexHolder.addNext(Quantifier.GREEDY.oneOrMoreOf(groupDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one or more occurrences of give character.
+	 * {@link Quantifier} parameter passed will determine the regex created.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @param quantifier
+	 * @return
+	 */
+	public LinkingPatternAccumulator oneOrMoreOf(Quantifier quantifier, char character) {
+		regexHolder.addNext(quantifier.oneOrMoreOf(character));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one or more occurrences of give character definition.
+	 * {@link Quantifier} parameter passed will determine the regex created.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @param quantifier
+	 * @return
+	 */
+	public LinkingPatternAccumulator oneOrMoreOf(Quantifier quantifier, CharacterDefinition characterDefinition) {
+		regexHolder.addNext(quantifier.oneOrMoreOf(characterDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one or more occurrences of give group definition.
+	 * {@link Quantifier} parameter passed will determine the regex created.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @param quantifier
+	 * @return
+	 */
+	public LinkingPatternAccumulator oneOrMoreOf(Quantifier quantifier, GroupDefinition groupDefinition) {
+		regexHolder.addNext(quantifier.oneOrMoreOf(groupDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one occurrence or no occurrence at all of given
+	 * character. Regex greedy quantifier "?" is used for this.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public LinkingPatternAccumulator onceOrNotAtAlleOf(char character) {
+		regexHolder.addNext(Quantifier.GREEDY.onceOrNotAtAlleOf(character));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one occurrence or no occurrence at all of given
+	 * character definition. Regex greedy quantifier "?" is used for this.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public LinkingPatternAccumulator onceOrNotAtAlleOf(CharacterDefinition characterDefinition) {
+		regexHolder.addNext(Quantifier.GREEDY.onceOrNotAtAlleOf(characterDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one occurrence or no occurrence at all of given group
+	 * definition. Regex greedy quantifier "?" is used for this.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public LinkingPatternAccumulator onceOrNotAtAlleOf(GroupDefinition groupDefinition) {
+		regexHolder.addNext(Quantifier.GREEDY.onceOrNotAtAlleOf(groupDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one occurrence or no occurrence at all of given
+	 * character. {@link Quantifier} parameter passed will determine the regex
+	 * created.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @param quantifier
+	 * @return
+	 */
+	public LinkingPatternAccumulator onceOrNotAtAlleOf(Quantifier quantifier, char character) {
+		regexHolder.addNext(quantifier.onceOrNotAtAlleOf(character));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one occurrence or no occurrence at all of given
+	 * character definition. {@link Quantifier} parameter passed will determine
+	 * the regex created.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @param quantifier
+	 * @return
+	 */
+	public LinkingPatternAccumulator onceOrNotAtAlleOf(Quantifier quantifier, CharacterDefinition characterDefinition) {
+		regexHolder.addNext(quantifier.onceOrNotAtAlleOf(characterDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/**
+	 * Pattern to match one occurrence or no occurrence at all of given group
+	 * definition. {@link Quantifier} parameter passed will determine the regex
+	 * created.
+	 * 
+	 * If input character contains any special regex characters then it will
+	 * escaped using {@link Pattern#quote(String)}
+	 * 
+	 * @param character
+	 * @param quantifier
+	 * @return
+	 */
+	public LinkingPatternAccumulator onceOrNotAtAlleOf(Quantifier quantifier, GroupDefinition groupDefinition) {
+		regexHolder.addNext(quantifier.onceOrNotAtAlleOf(groupDefinition));
+		return linkingPatternAccumulator;
+	}
+
+	/*
+	 * ----------------- Other Methods ------------------
+	 */
 
 	abstract O build();
 

@@ -17,8 +17,32 @@ public class SimpleRegex {
 		this.characterPattern = new StringRegexBuilder(this.regexHolder);
 	}
 
+	/**
+	 * Start here to build regex.
+	 * 
+	 * @return
+	 */
 	public static SimpleRegex regex() {
 		return new SimpleRegex();
+	}
+
+	/**
+	 * Starting method for building {@link CharacterDefinition}
+	 * 
+	 * @return
+	 */
+	public static CharacterDefinitionBuilder charThatIs() {
+		return new CharacterDefinitionBuilder();
+	}
+
+	/**
+	 * Starting method for building {@link GroupDefinition}
+	 * 
+	 * @return
+	 */
+	public static GroupDefinitionBuilder groupHaving() {
+		return new GroupDefinitionBuilder(new RegexHolder());
+
 	}
 
 	public StringRegexBuilder startingWith() {
