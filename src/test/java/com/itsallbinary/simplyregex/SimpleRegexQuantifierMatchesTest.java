@@ -132,6 +132,99 @@ public class SimpleRegexQuantifierMatchesTest {
 						.onceOrNotAtAlleOf(groupHaving().exactString("a").then().anyDigitChar().build()).build(),
 						"a9a5a0", false },
 
+				/*
+				 * ---------- Exact multiples of --------------------
+				 */
+
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2).occurrencesOf('c').build(), "acc",
+						true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2).occurrencesOf('c').build(),
+						"ncccc", false },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2).occurrencesOf('c').build(), "dc",
+						false },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "dcr", true },
+
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "drr", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "dbd", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "drrr", false },
+
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2)
+						.occurrencesOf(groupHaving().anyDigitChar().then().exactString("z").build()).build(), "d1z2z",
+						true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2)
+						.occurrencesOf(groupHaving().anyDigitChar().then().exactString("z").build()).build(), "d1z",
+						false },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2)
+						.occurrencesOf(groupHaving().anyDigitChar().then().exactString("z").build()).build(), "d1z2z2z",
+						false },
+
+				/*
+				 * ---------- At least multiples of --------------------
+				 */
+
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2).occurrencesOf('c').build(),
+						"acc", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2).occurrencesOf('c').build(),
+						"ucccc", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2).occurrencesOf('c').build(), "dc",
+						false },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "dcr", true },
+
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "drr", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "dbd", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "drrr", true },
+
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2)
+						.occurrencesOf(groupHaving().anyDigitChar().then().exactString("z").build()).build(), "d1z2z",
+						true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2)
+						.occurrencesOf(groupHaving().anyDigitChar().then().exactString("z").build()).build(), "d1z",
+						false },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().atleast(2)
+						.occurrencesOf(groupHaving().anyDigitChar().then().exactString("z").build()).build(), "d1z2z2z",
+						true },
+
+				/*
+				 * ---------- Between multiples of --------------------
+				 */
+
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4).occurrencesOf('c').build(),
+						"acc", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4).occurrencesOf('c').build(),
+						"nccc", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4).occurrencesOf('c').build(),
+						"pcccc", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4).occurrencesOf('c').build(),
+						"dc", false },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4).occurrencesOf('c').build(),
+						"dccccc", false },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "dcr", true },
+
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "drr", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "dbd", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4)
+						.occurrencesOf(charThatIs().between('b', 'd').or().exact('r').build()).build(), "drrr", true },
+
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4).occurrencesOf(
+						groupHaving().anyDigitChar().then().exactString("z").build()).build(), "d1z2z", true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4)
+						.occurrencesOf(groupHaving().anyDigitChar().then().exactString("z").build()).build(), "d1z",
+						false },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().between(2, 4)
+						.occurrencesOf(groupHaving().anyDigitChar().then().exactString("z").build()).build(), "d1z2z2z",
+						true },
+
 		});
 	}
 

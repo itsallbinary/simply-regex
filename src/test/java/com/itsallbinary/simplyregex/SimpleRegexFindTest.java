@@ -60,6 +60,13 @@ public class SimpleRegexFindTest {
 						.oneOrMoreOf(groupHaving().exactString("abc").then().anyDigitChar().build()).build(), "abczzz",
 						false },
 
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2).occurrencesOf('c').build(), "acc",
+						true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2).occurrencesOf('c').build(), "zcc",
+						true },
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2).occurrencesOf('c').build(), "ac",
+						false },
+
 		});
 	}
 

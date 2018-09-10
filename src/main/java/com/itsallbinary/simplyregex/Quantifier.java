@@ -96,76 +96,106 @@ public enum Quantifier {
 		return oneOrMoreOf(groupDefinition.buildGroup(), false);
 	}
 
-	private String exactMultiplesOf(String input, int times, boolean quote) {
-		if (quote) {
-			return quoteIfRequired(input) + "{" + times + "}" + this.multipleSuffix;
-		} else {
-			return input + "{" + times + "}" + this.multipleSuffix;
-		}
+	// private String exactMultiplesOf(String input, int times, boolean quote) {
+	// if (quote) {
+	// return quoteIfRequired(input) + "{" + times + "}" + this.multipleSuffix;
+	// } else {
+	// return input + "{" + times + "}" + this.multipleSuffix;
+	// }
+	// }
+	//
+	// public String exactMultiplesOf(String input, int times) {
+	// return exactMultiplesOf(input, times, true);
+	// }
+	//
+	// public String exactMultiplesOf(char input, int times) {
+	// return exactMultiplesOf("" + input, times, true);
+	// }
+	//
+	// public String exactMultiplesOf(CharacterDefinition characterDefinition,
+	// int times) {
+	// return exactMultiplesOf(characterDefinition.buildChar(), times, false);
+	// }
+	//
+	// public String exactMultiplesOf(GroupDefinition groupDefinition, int
+	// times) {
+	// return exactMultiplesOf(groupDefinition.buildGroup(), times, false);
+	// }
+	//
+	// private String atleastMultiplesOf(String input, int times, boolean quote)
+	// {
+	// if (quote) {
+	// return quoteIfRequired(input) + "{" + times + ",}" + this.multipleSuffix;
+	// } else {
+	// return input + "{" + times + ",}" + this.multipleSuffix;
+	// }
+	// }
+	//
+	// public String atleastMultiplesOf(String input, int times) {
+	// return atleastMultiplesOf(input, times, true);
+	// }
+	//
+	// public String atleastMultiplesOf(char input, int times) {
+	// return atleastMultiplesOf("" + input, times, true);
+	// }
+	//
+	// public String atleastMultiplesOf(CharacterDefinition characterDefinition,
+	// int times) {
+	// return atleastMultiplesOf(characterDefinition.buildChar(), times, false);
+	// }
+	//
+	// public String atleastMultiplesOf(GroupDefinition groupDefinition, int
+	// times) {
+	// return atleastMultiplesOf(groupDefinition.buildGroup(), times, false);
+	// }
+	//
+	// private String betweenMultiplesOf(String input, int lowerCount, int
+	// upperCount, boolean quote) {
+	// if (quote) {
+	// return quoteIfRequired(input) + "{" + lowerCount + "," + upperCount + "}"
+	// + this.multipleSuffix;
+	// } else {
+	// return input + "{" + lowerCount + "," + upperCount + "}" +
+	// this.multipleSuffix;
+	// }
+	// }
+	//
+	// public String betweenMultiplesOf(String input, int lowerCount, int
+	// upperCount) {
+	// return betweenMultiplesOf(input, lowerCount, upperCount, true);
+	// }
+	//
+	// public String betweenMultiplesOf(char input, int lowerCount, int
+	// upperCount) {
+	// return betweenMultiplesOf("" + input, lowerCount, upperCount, true);
+	// }
+	//
+	// public String betweenMultiplesOf(CharacterDefinition characterDefinition,
+	// int lowerCount, int upperCount) {
+	// return betweenMultiplesOf(characterDefinition.buildChar(), lowerCount,
+	// upperCount, false);
+	// }
+	//
+	// public String betweenMultiplesOf(GroupDefinition groupDefinition, int
+	// lowerCount, int upperCount) {
+	// return betweenMultiplesOf(groupDefinition.buildGroup(), lowerCount,
+	// upperCount, false);
+	// }
+
+	String getOnceNotAtAllSuffix() {
+		return onceNotAtAllSuffix;
 	}
 
-	public String exactMultiplesOf(String input, int times) {
-		return exactMultiplesOf(input, times, true);
+	String getZeroOrMoreSuffix() {
+		return zeroOrMoreSuffix;
 	}
 
-	public String exactMultiplesOf(char input, int times) {
-		return exactMultiplesOf("" + input, times, true);
+	String getOneOrMoreSuffix() {
+		return oneOrMoreSuffix;
 	}
 
-	public String exactMultiplesOf(CharacterDefinition characterDefinition, int times) {
-		return exactMultiplesOf(characterDefinition.buildChar(), times, false);
-	}
-
-	public String exactMultiplesOf(GroupDefinition groupDefinition, int times) {
-		return exactMultiplesOf(groupDefinition.buildGroup(), times, false);
-	}
-
-	private String atleastMultiplesOf(String input, int times, boolean quote) {
-		if (quote) {
-			return quoteIfRequired(input) + "{" + times + ",}" + this.multipleSuffix;
-		} else {
-			return input + "{" + times + ",}" + this.multipleSuffix;
-		}
-	}
-
-	public String atleastMultiplesOf(String input, int times) {
-		return atleastMultiplesOf(input, times, true);
-	}
-
-	public String atleastMultiplesOf(char input, int times) {
-		return atleastMultiplesOf("" + input, times, true);
-	}
-
-	public String atleastMultiplesOf(CharacterDefinition characterDefinition, int times) {
-		return atleastMultiplesOf(characterDefinition.buildChar(), times, false);
-	}
-
-	public String atleastMultiplesOf(GroupDefinition groupDefinition, int times) {
-		return atleastMultiplesOf(groupDefinition.buildGroup(), times, false);
-	}
-
-	private String betweenMultiplesOf(String input, int lowerCount, int upperCount, boolean quote) {
-		if (quote) {
-			return quoteIfRequired(input) + "{" + lowerCount + "," + upperCount + "}" + this.multipleSuffix;
-		} else {
-			return input + "{" + lowerCount + "," + upperCount + "}" + this.multipleSuffix;
-		}
-	}
-
-	public String betweenMultiplesOf(String input, int lowerCount, int upperCount) {
-		return betweenMultiplesOf(input, lowerCount, upperCount, true);
-	}
-
-	public String betweenMultiplesOf(char input, int lowerCount, int upperCount) {
-		return betweenMultiplesOf("" + input, lowerCount, upperCount, true);
-	}
-
-	public String betweenMultiplesOf(CharacterDefinition characterDefinition, int lowerCount, int upperCount) {
-		return betweenMultiplesOf(characterDefinition.buildChar(), lowerCount, upperCount, false);
-	}
-
-	public String betweenMultiplesOf(GroupDefinition groupDefinition, int lowerCount, int upperCount) {
-		return betweenMultiplesOf(groupDefinition.buildGroup(), lowerCount, upperCount, false);
+	String getMultipleSuffix() {
+		return multipleSuffix;
 	}
 
 }

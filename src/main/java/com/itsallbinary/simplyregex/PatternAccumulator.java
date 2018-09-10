@@ -3,6 +3,7 @@ package com.itsallbinary.simplyregex;
 import static com.itsallbinary.simplyregex.utils.RegexUtils.quoteIfRequired;
 
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -22,9 +23,14 @@ public abstract class PatternAccumulator<O> {
 
 	private LinkingPatternAccumulator linkingPatternAccumulator;
 
+	// private QuantifierLinkingPatternAccumulator
+	// quantifierLinkingPatternAccumulator;
+
 	PatternAccumulator(/* T builder, */ RegexHolder regexHolder) {
 		this.regexHolder = regexHolder;
 		this.linkingPatternAccumulator = new LinkingPatternAccumulator();
+		// this.quantifierLinkingPatternAccumulator = new
+		// QuantifierLinkingPatternAccumulator();
 		// this.builder = builder;
 	}
 
@@ -489,6 +495,258 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	/*
+	 * ----------------- Multiples of Methods ------------------
+	 */
+
+	public QuantifierLinkingPatternAccumulator exact(int times) {
+
+		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
+				MultiplesType.EXACT, times, Quantifier.GREEDY);
+		return quantifierLinkingPatternAccumulator;
+	}
+
+	public QuantifierLinkingPatternAccumulator exact(int times, Quantifier quantifier) {
+
+		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
+				MultiplesType.EXACT, times, quantifier);
+		return quantifierLinkingPatternAccumulator;
+	}
+
+	public QuantifierLinkingPatternAccumulator atleast(int times) {
+
+		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
+				MultiplesType.AT_LEAST, times, Quantifier.GREEDY);
+		return quantifierLinkingPatternAccumulator;
+	}
+
+	public QuantifierLinkingPatternAccumulator atleast(int times, Quantifier quantifier) {
+
+		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
+				MultiplesType.AT_LEAST, times, quantifier);
+		return quantifierLinkingPatternAccumulator;
+	}
+
+	public QuantifierLinkingPatternAccumulator between(int lowerLimit, int upperLimit) {
+
+		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
+				MultiplesType.BETWEEN, lowerLimit, upperLimit, Quantifier.GREEDY);
+		return quantifierLinkingPatternAccumulator;
+	}
+
+	public QuantifierLinkingPatternAccumulator between(int lowerLimit, int upperLimit, Quantifier quantifier) {
+
+		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
+				MultiplesType.BETWEEN, lowerLimit, upperLimit, quantifier);
+		return quantifierLinkingPatternAccumulator;
+	}
+
+	// /**
+	// * Pattern to match multiple occurrences of given character. Regex greedy
+	// * quantifier {times} is used for this.
+	// *
+	// * If input character contains any special regex characters then it will
+	// * escaped using {@link Pattern#quote(String)}
+	// *
+	// * @param input
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator exactMultiplesOf(char input, int times)
+	// {
+	// regexHolder.addNext(Quantifier.GREEDY.exactMultiplesOf(input, times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match multiple occurrences of given character definition.
+	// * Regex greedy quantifier {times} is used for this.
+	// *
+	// * If input character contains any special regex characters then it will
+	// * escaped using {@link Pattern#quote(String)}
+	// *
+	// * @param characterDefinition
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator exactMultiplesOf(CharacterDefinition
+	// characterDefinition, int times) {
+	// regexHolder.addNext(Quantifier.GREEDY.exactMultiplesOf(characterDefinition,
+	// times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match multiple occurrences of given group definition. Regex
+	// * greedy quantifier {times} is used for this.
+	// *
+	// * If input character contains any special regex characters then it will
+	// * escaped using {@link Pattern#quote(String)}
+	// *
+	// * @param groupDefinition
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator exactMultiplesOf(GroupDefinition
+	// groupDefinition, int times) {
+	// regexHolder.addNext(Quantifier.GREEDY.exactMultiplesOf(groupDefinition,
+	// times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match multiple occurrences of given character. Regex
+	// * quantifier used for this is determined by passed quantifier.
+	// *
+	// * @param quantifier
+	// * @param character
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator exactMultiplesOf(Quantifier quantifier,
+	// char character, int times) {
+	// regexHolder.addNext(quantifier.exactMultiplesOf(character, times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match multiple occurrences of given character definition.
+	// * Regex quantifier used for this is determined by passed quantifier.
+	// *
+	// * @param quantifier
+	// * @param characterDefinition
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator exactMultiplesOf(Quantifier quantifier,
+	// CharacterDefinition characterDefinition,
+	// int times) {
+	// regexHolder.addNext(quantifier.exactMultiplesOf(characterDefinition,
+	// times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match multiple occurrences of given group definition. Regex
+	// * quantifier used for this is determined by passed quantifier.
+	// *
+	// * @param quantifier
+	// * @param groupDefinition
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator exactMultiplesOf(Quantifier quantifier,
+	// GroupDefinition groupDefinition,
+	// int times) {
+	// regexHolder.addNext(quantifier.exactMultiplesOf(groupDefinition, times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match atleast times multiple occurrences of given character
+	// .
+	// * Regex greedy quantifier {times} is used for this.
+	// *
+	// * If input character contains any special regex characters then it will
+	// * escaped using {@link Pattern#quote(String)}
+	// *
+	// * @param input
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator atleastMultiplesOf(char input, int
+	// times) {
+	// regexHolder.addNext(Quantifier.GREEDY.atleastMultiplesOf(input, times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match atleast times multiple occurrences of given character
+	// * definition. Regex greedy quantifier {times} is used for this.
+	// *
+	// * If input character contains any special regex characters then it will
+	// * escaped using {@link Pattern#quote(String)}
+	// *
+	// * @param characterDefinition
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator atleastMultiplesOf(CharacterDefinition
+	// characterDefinition, int times) {
+	// regexHolder.addNext(Quantifier.GREEDY.atleastMultiplesOf(characterDefinition,
+	// times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match atleast times multiple occurrences of given group
+	// * definition. Regex greedy quantifier {times} is used for this.
+	// *
+	// * If input character contains any special regex characters then it will
+	// * escaped using {@link Pattern#quote(String)}
+	// *
+	// * @param groupDefinition
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator atleastMultiplesOf(GroupDefinition
+	// groupDefinition, int times) {
+	// regexHolder.addNext(Quantifier.GREEDY.atleastMultiplesOf(groupDefinition,
+	// times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match atleast times multiple occurrences of given character.
+	// * Regex quantifier used for this is determined by passed quantifier.
+	// *
+	// * @param quantifier
+	// * @param character
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator atleastMultiplesOf(Quantifier
+	// quantifier, char character, int times) {
+	// regexHolder.addNext(quantifier.atleastMultiplesOf(character, times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match atleast times multiple occurrences of given character
+	// * definition. Regex quantifier used for this is determined by passed
+	// * quantifier.
+	// *
+	// * @param quantifier
+	// * @param characterDefinition
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator atleastMultiplesOf(Quantifier
+	// quantifier, CharacterDefinition characterDefinition,
+	// int times) {
+	// regexHolder.addNext(quantifier.atleastMultiplesOf(characterDefinition,
+	// times));
+	// return linkingPatternAccumulator;
+	// }
+	//
+	// /**
+	// * Pattern to match atleast times multiple occurrences of given group
+	// * definition. Regex quantifier used for this is determined by passed
+	// * quantifier.
+	// *
+	// * @param quantifier
+	// * @param groupDefinition
+	// * @param times
+	// * @return
+	// */
+	// public LinkingPatternAccumulator atleastMultiplesOf(Quantifier
+	// quantifier, GroupDefinition groupDefinition,
+	// int times) {
+	// regexHolder.addNext(quantifier.atleastMultiplesOf(groupDefinition,
+	// times));
+	// return linkingPatternAccumulator;
+	// }
+
+	/*
 	 * ----------------- Other Methods ------------------
 	 */
 
@@ -499,6 +757,10 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	public class LinkingPatternAccumulator {
+
+		private LinkingPatternAccumulator() {
+
+		}
 
 		/**
 		 * This method links pattern before this method with pattern after this
@@ -524,6 +786,87 @@ public abstract class PatternAccumulator<O> {
 		public O build() {
 			return PatternAccumulator.this.build();
 		};
+	}
+
+	private enum MultiplesType {
+		EXACT, AT_LEAST, BETWEEN;
+	}
+
+	public class QuantifierLinkingPatternAccumulator {
+
+		private MultiplesType multiplesType;
+		private Quantifier quantifier;
+		private Integer lowerLimit;
+		private Integer upperLimit;
+
+		private QuantifierLinkingPatternAccumulator(MultiplesType multiplesType, Integer lowerLimit, Integer upperLimit,
+				Quantifier quantifier) {
+			this.multiplesType = multiplesType;
+			this.lowerLimit = lowerLimit;
+			this.upperLimit = upperLimit;
+			this.quantifier = quantifier;
+		}
+
+		private QuantifierLinkingPatternAccumulator(MultiplesType multiplesType, Integer lowerLimit,
+				Quantifier quantifier) {
+			this.multiplesType = multiplesType;
+			this.lowerLimit = lowerLimit;
+			this.quantifier = quantifier;
+		}
+
+		public PatternAccumulator<O> occurrencesOf(char character) {
+			getRegexHolder().addNext(multiplesOf("" + character, true));
+			return PatternAccumulator.this;
+		}
+
+		public PatternAccumulator<O> occurrencesOf(CharacterDefinition characterDefinition) {
+			getRegexHolder().addNext(multiplesOf(characterDefinition.buildChar(), false));
+			return PatternAccumulator.this;
+		}
+
+		public PatternAccumulator<O> occurrencesOf(GroupDefinition groupDefinition) {
+			getRegexHolder().addNext(multiplesOf(groupDefinition.buildGroup(), false));
+			return PatternAccumulator.this;
+		}
+
+		private String multiplesOf(String input, boolean quote) {
+			switch (multiplesType) {
+			case EXACT:
+				return exactMultiplesOf(input, this.lowerLimit, quote);
+			case AT_LEAST:
+				return atleastMultiplesOf(input, this.lowerLimit, quote);
+			case BETWEEN:
+				return betweenMultiplesOf(input, this.lowerLimit, this.upperLimit, quote);
+			default:
+				return "";
+			}
+		}
+
+		private String exactMultiplesOf(String input, int times, boolean quote) {
+			if (quote) {
+				return quoteIfRequired(input) + "{" + times + "}" + this.quantifier.getMultipleSuffix();
+			} else {
+				return input + "{" + times + "}" + this.quantifier.getMultipleSuffix();
+			}
+		}
+
+		private String atleastMultiplesOf(String input, int times, boolean quote) {
+			if (quote) {
+				return quoteIfRequired(input) + "{" + times + ",}" + this.quantifier.getMultipleSuffix();
+			} else {
+				return input + "{" + times + ",}" + this.quantifier.getMultipleSuffix();
+			}
+		}
+
+		private String betweenMultiplesOf(String input, int lowerCount, int upperCount, boolean quote) {
+			if (quote) {
+				return quoteIfRequired(input) + "{" + lowerCount + "," + upperCount + "}"
+						+ this.quantifier.getMultipleSuffix();
+			} else {
+				return input + "{" + lowerCount + "," + upperCount + "}" + this.quantifier.getMultipleSuffix();
+			}
+		}
+
 	}
 
 }
