@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.itsallbinary</groupId>
 	<artifactId>simply-regex</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.alpha.01</version>
 	<name>Simply Regex</name>
 	<description>Simple API to build complex regex patterns.</description>
 
@@ -17,7 +17,18 @@
 		</license>
 	</licenses>
 
+	<developers>
+		<developer>
+			<name>Ravi Kharatmal</name>
+			<email>info@itsallbinary.com</email>
+			<organization>Its All Binary</organization>
+			<organizationUrl>http://itsallbinary.com</organizationUrl>
+		</developer>
+	</developers>
+
 	<scm>
+		<connection>scm:git:git://github.com/itsallbinary/simply-regex.git</connection>
+		<developerConnection>scm:git:ssh://github.com/itsallbinary/simply-regex.git</developerConnection>
 		<url>https://github.com/itsallbinary/simply-regex</url>
 	</scm>
 
@@ -45,4 +56,43 @@
 
 
 	</dependencies>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

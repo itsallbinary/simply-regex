@@ -608,19 +608,19 @@ public abstract class PatternAccumulator<O> {
 			this.quantifier = quantifier;
 		}
 
-		public PatternAccumulator<O> occurrencesOf(char character) {
+		public LinkingPatternAccumulator occurrencesOf(char character) {
 			getRegexHolder().addNext(multiplesOf("" + character, true));
-			return PatternAccumulator.this;
+			return PatternAccumulator.this.linkingPatternAccumulator;
 		}
 
-		public PatternAccumulator<O> occurrencesOf(CharacterDefinition characterDefinition) {
+		public LinkingPatternAccumulator occurrencesOf(CharacterDefinition characterDefinition) {
 			getRegexHolder().addNext(multiplesOf(characterDefinition.buildChar(), false));
-			return PatternAccumulator.this;
+			return PatternAccumulator.this.linkingPatternAccumulator;
 		}
 
-		public PatternAccumulator<O> occurrencesOf(GroupDefinition groupDefinition) {
+		public LinkingPatternAccumulator occurrencesOf(GroupDefinition groupDefinition) {
 			getRegexHolder().addNext(multiplesOf(groupDefinition.buildGroup(), false));
-			return PatternAccumulator.this;
+			return PatternAccumulator.this.linkingPatternAccumulator;
 		}
 
 		private String multiplesOf(String input, boolean quote) {
