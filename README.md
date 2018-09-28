@@ -100,3 +100,29 @@ boolean isMatch = pattern.matcher(testString).matches();
 This will build regex as = (abc\d)+
 Input: testString = “abc1abc2” Output: isMatch = true
 Input: testString = “abcz” Output: isMatch = false
+
+### Simple capture groups
+Simple & fluent way to create capture groups.
+
+```java
+// Capture Group Example
+String builtRegex = SimpleRegex.regex().anywhereInText()
+                      .exactString("My Name is ")
+                      .then()
+		      .group(
+                          groupHaving().oneOrMoreOf(charThatIs().anyWordChar().build()
+                       ).build())
+                      .then()
+                      .exactString(". ")
+		      .build();
+		
+String testString = "My Name is John. My Name is Merry. My Name is Rock. ";
+ 
+Matcher matcher = Pattern.compile(builtRegex).matcher(testString);
+matcher.find();
+assertEquals("John", matcher.group(1));
+matcher.find();
+assertEquals("Merry", matcher.group(1));
+matcher.find();
+assertEquals("Rock", matcher.group(1));
+```
