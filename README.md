@@ -4,7 +4,7 @@
 
 **License** - Apache 2.0
 
-**Releases/Dependencies** - [![Maven Central](https://img.shields.io/maven-central/v/com.itsallbinary/simply-regex.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.itsallbinary%22%20AND%20a:%22simply-regex%22)  [![Build Status](https://travis-ci.org/itsallbinary/simply-regex.svg?branch=master)](https://travis-ci.org/itsallbinary/simply-regex)
+**Releases/Dependencies** - [![Maven Central](https://img.shields.io/maven-central/v/com.itsallbinary/simply-regex.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.itsallbinary%22%20AND%20a:%22simply-regex%22)  [![Build Status](https://travis-ci.org/itsallbinary/simply-regex.svg?branch=master)](https://travis-ci.org/itsallbinary/simply-regex) [![codecov](https://codecov.io/gh/itsallbinary/simply-regex/branch/master/graph/badge.svg)](https://codecov.io/gh/itsallbinary/simply-regex)
 
 Refer release page http://itsallbinary.com/project-simply-regex/simply-regex-releases/
 
