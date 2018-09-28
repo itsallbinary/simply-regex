@@ -4,12 +4,20 @@ public class GroupDefinition {
 
 	private GroupDefinitionBuilder groupDefinitionBuilder;
 
-	GroupDefinition(GroupDefinitionBuilder groupDefinitionBuilder) {
+	private String groupName;
+
+	GroupDefinition(String groupName, GroupDefinitionBuilder groupDefinitionBuilder) {
 		this.groupDefinitionBuilder = groupDefinitionBuilder;
+		this.groupName = groupName;
 	}
 
 	String buildGroup() {
-		return "(" + groupDefinitionBuilder.getRegexHolder().build() + ")";
+		if (groupName == null) {
+			return "(" + groupDefinitionBuilder.getRegexHolder().build() + ")";
+		} else {
+			return "(?<" + groupName + ">" + groupDefinitionBuilder.getRegexHolder().build() + ")";
+
+		}
 	}
 
 }

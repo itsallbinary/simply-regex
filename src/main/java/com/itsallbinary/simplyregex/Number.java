@@ -8,12 +8,7 @@ public class Number {
 		System.out.println(anyNumberBetween(0, 255));
 	}
 
-	/**
-	 * 0 - 255
-	 * 
-	 * @param start
-	 * @param end
-	 */
+
 	public static String anyNumberBetween(int start, int end) {
 
 		String finalRegex = "";

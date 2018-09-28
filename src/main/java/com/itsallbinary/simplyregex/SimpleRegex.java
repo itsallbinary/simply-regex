@@ -1,5 +1,7 @@
 package com.itsallbinary.simplyregex;
 
+import com.itsallbinary.simplyregex.GroupDefinitionBuilder.LinkingGroupDefinitionBuilder;
+
 /**
  * Starting class to start building regex.
  * 
@@ -20,7 +22,7 @@ public class SimpleRegex {
 	/**
 	 * Start here to build regex.
 	 * 
-	 * @return
+	 * @return SimpleRegex
 	 */
 	public static SimpleRegex regex() {
 		return new SimpleRegex();
@@ -29,7 +31,7 @@ public class SimpleRegex {
 	/**
 	 * Starting method for building {@link CharacterDefinition}
 	 * 
-	 * @return
+	 * @return CharacterDefinitionBuilder
 	 */
 	public static CharacterDefinitionBuilder charThatIs() {
 		return new CharacterDefinitionBuilder();
@@ -38,10 +40,15 @@ public class SimpleRegex {
 	/**
 	 * Starting method for building {@link GroupDefinition}
 	 * 
-	 * @return
+	 * @return GroupDefinitionBuilder
 	 */
 	public static GroupDefinitionBuilder groupHaving() {
 		return new GroupDefinitionBuilder(new RegexHolder());
+
+	}
+
+	public static LinkingGroupDefinitionBuilder groupWithName(String groupName) {
+		return new GroupDefinitionBuilder(groupName, new RegexHolder()).getLinkingGroupDefinitionBuilder();
 
 	}
 

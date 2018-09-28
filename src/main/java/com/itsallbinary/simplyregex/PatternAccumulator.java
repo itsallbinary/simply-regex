@@ -41,15 +41,15 @@ public abstract class PatternAccumulator<O> {
 	/**
 	 * Pattern to match exact string.
 	 * 
-	 * If input string contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input string contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
 	 * <pre>
 	 * SimpleRegex.regex().startingWith().exactString("abc").build()
 	 * </pre>
 	 * 
-	 * @param characters
-	 * @return
+	 * @param characters - Exact string to match in pattern
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator exactString(String characters) {
 		RegexUtils.checkInputForValidity(characters);
@@ -62,15 +62,16 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match one of the characters from the input characters. Pattern
 	 * created using "|" i.e. OR condition in regex within character class.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
 	 * <pre>
 	 * SimpleRegex.regex().startingWith().oneOfTheCharacterBetween('d', 'f').build()
 	 * </pre>
 	 * 
-	 * @param characters
-	 * @return
+	 * @param characters - array of characters. One of these character will be
+	 *                   matched using OR.
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator oneOfTheCharacters(char... characters) {
 
@@ -79,19 +80,20 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	/**
-	 * Pattern to match one of the characters from the input character
-	 * definition. Pattern created using "|" i.e. OR condition in regex within
-	 * character class.
+	 * Pattern to match one of the characters from the input character definition.
+	 * Pattern created using "|" i.e. OR condition in regex within character class.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
 	 * <pre>
-	 * SimpleRegex.regex().anywhereInText()<br/>.oneOrMoreOf(SimpleRegexDefinitions.charThatIs().between('a', 'c').or().exact('r').build()).build()
+	 * SimpleRegex.regex().anywhereInText()
+	 * 		.oneOrMoreOf(SimpleRegexDefinitions.charThatIs().between('a', 'c').or().exact('r').build()).build()
 	 * </pre>
 	 * 
-	 * @param characters
-	 * @return
+	 * @param characterDefinition - Definition of character which can be built using
+	 *                            SimpleRegex.charThatIs()
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator oneOfTheCharacters(CharacterDefinition characterDefinition) {
 
@@ -216,11 +218,11 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match zero or more occurrences of give character. Regex greedy
 	 * quantifier "*" is used for this.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @return
+	 * @param character - character
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator zeroOrMoreOf(char character) {
 		regexHolder.addNext(Quantifier.GREEDY.zeroOrMoreOf(character));
@@ -231,11 +233,12 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match zero or more occurrences of given character definition.
 	 * Regex greedy quantifier "*" is used for this.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @return
+	 * @param characterDefinition - Definition of character which can be built using
+	 *                            SimpleRegex.charThatIs()
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator zeroOrMoreOf(CharacterDefinition characterDefinition) {
 		regexHolder.addNext(Quantifier.GREEDY.zeroOrMoreOf(characterDefinition));
@@ -243,14 +246,15 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	/**
-	 * Pattern to match zero or more occurrences of given group definition.
-	 * Regex greedy quantifier "*" is used for this.
+	 * Pattern to match zero or more occurrences of given group definition. Regex
+	 * greedy quantifier "*" is used for this.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @return
+	 * @param groupDefinition - Definition of group which can be built using
+	 *                        SimpleRegex.groupHaving()
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator zeroOrMoreOf(GroupDefinition groupDefinition) {
 		regexHolder.addNext(Quantifier.GREEDY.zeroOrMoreOf(groupDefinition));
@@ -261,12 +265,12 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match zero or more occurrences of give character.
 	 * {@link Quantifier} parameter passed will determine the regex created.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @param quantifier
-	 * @return
+	 * @param character  - character
+	 * @param quantifier - Type from enum com.itsallbinary.simplyregex.Quantifier
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator zeroOrMoreOf(Quantifier quantifier, char character) {
 		regexHolder.addNext(quantifier.zeroOrMoreOf(character));
@@ -277,12 +281,14 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match zero or more occurrences of given character definition.
 	 * {@link Quantifier} parameter passed will determine the regex created.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @param quantifier
-	 * @return
+	 * @param characterDefinition - Definition of character which can be built using
+	 *                            SimpleRegex.charThatIs()
+	 * @param quantifier          - Type from enum
+	 *                            com.itsallbinary.simplyregex.Quantifier
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator zeroOrMoreOf(Quantifier quantifier, CharacterDefinition characterDefinition) {
 		regexHolder.addNext(quantifier.zeroOrMoreOf(characterDefinition));
@@ -293,12 +299,14 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match zero or more occurrences of given group definition.
 	 * {@link Quantifier} parameter passed will determine the regex created.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @param quantifier
-	 * @return
+	 * @param groupDefinition - Definition of group which can be built using
+	 *                        SimpleRegex.groupHaving()
+	 * @param quantifier      - Type from enum
+	 *                        com.itsallbinary.simplyregex.Quantifier
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator zeroOrMoreOf(Quantifier quantifier, GroupDefinition groupDefinition) {
 		regexHolder.addNext(quantifier.zeroOrMoreOf(groupDefinition));
@@ -309,11 +317,11 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match one or more occurrences of give character. Regex greedy
 	 * quantifier "+" is used for this.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @return
+	 * @param character - character
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator oneOrMoreOf(char character) {
 		regexHolder.addNext(Quantifier.GREEDY.oneOrMoreOf(character));
@@ -321,14 +329,15 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	/**
-	 * Pattern to match one or more occurrences of give character definition.
-	 * Regex greedy quantifier "+" is used for this.
+	 * Pattern to match one or more occurrences of give character definition. Regex
+	 * greedy quantifier "+" is used for this.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @return
+	 * @param characterDefinition - Definition of character which can be built using
+	 *                            SimpleRegex.charThatIs()
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator oneOrMoreOf(CharacterDefinition characterDefinition) {
 		regexHolder.addNext(Quantifier.GREEDY.oneOrMoreOf(characterDefinition));
@@ -339,11 +348,12 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match one or more occurrences of give group definition. Regex
 	 * greedy quantifier "+" is used for this.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @return
+	 * @param groupDefinition - Definition of group which can be built using
+	 *                        SimpleRegex.groupHaving()
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator oneOrMoreOf(GroupDefinition groupDefinition) {
 		regexHolder.addNext(Quantifier.GREEDY.oneOrMoreOf(groupDefinition));
@@ -354,12 +364,12 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match one or more occurrences of give character.
 	 * {@link Quantifier} parameter passed will determine the regex created.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @param quantifier
-	 * @return
+	 * @param character  - character
+	 * @param quantifier - Type from enum com.itsallbinary.simplyregex.Quantifier
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator oneOrMoreOf(Quantifier quantifier, char character) {
 		regexHolder.addNext(quantifier.oneOrMoreOf(character));
@@ -370,12 +380,14 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match one or more occurrences of give character definition.
 	 * {@link Quantifier} parameter passed will determine the regex created.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @param quantifier
-	 * @return
+	 * @param characterDefinition - Definition of character which can be built using
+	 *                            SimpleRegex.charThatIs()
+	 * @param quantifier          - Type from enum
+	 *                            com.itsallbinary.simplyregex.Quantifier
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator oneOrMoreOf(Quantifier quantifier, CharacterDefinition characterDefinition) {
 		regexHolder.addNext(quantifier.oneOrMoreOf(characterDefinition));
@@ -386,12 +398,14 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match one or more occurrences of give group definition.
 	 * {@link Quantifier} parameter passed will determine the regex created.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @param quantifier
-	 * @return
+	 * @param groupDefinition - Definition of group which can be built using
+	 *                        SimpleRegex.groupHaving()
+	 * @param quantifier      - Type from enum
+	 *                        com.itsallbinary.simplyregex.Quantifier
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator oneOrMoreOf(Quantifier quantifier, GroupDefinition groupDefinition) {
 		regexHolder.addNext(quantifier.oneOrMoreOf(groupDefinition));
@@ -399,14 +413,14 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	/**
-	 * Pattern to match one occurrence or no occurrence at all of given
-	 * character. Regex greedy quantifier "?" is used for this.
+	 * Pattern to match one occurrence or no occurrence at all of given character.
+	 * Regex greedy quantifier "?" is used for this.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @return
+	 * @param character - character
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator onceOrNotAtAlleOf(char character) {
 		regexHolder.addNext(Quantifier.GREEDY.onceOrNotAtAlleOf(character));
@@ -414,14 +428,15 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	/**
-	 * Pattern to match one occurrence or no occurrence at all of given
-	 * character definition. Regex greedy quantifier "?" is used for this.
+	 * Pattern to match one occurrence or no occurrence at all of given character
+	 * definition. Regex greedy quantifier "?" is used for this.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @return
+	 * @param characterDefinition - Definition of character which can be built using
+	 *                            SimpleRegex.charThatIs()
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator onceOrNotAtAlleOf(CharacterDefinition characterDefinition) {
 		regexHolder.addNext(Quantifier.GREEDY.onceOrNotAtAlleOf(characterDefinition));
@@ -432,11 +447,12 @@ public abstract class PatternAccumulator<O> {
 	 * Pattern to match one occurrence or no occurrence at all of given group
 	 * definition. Regex greedy quantifier "?" is used for this.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @return
+	 * @param groupDefinition - Definition of group which can be built using
+	 *                        SimpleRegex.groupHaving()
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator onceOrNotAtAlleOf(GroupDefinition groupDefinition) {
 		regexHolder.addNext(Quantifier.GREEDY.onceOrNotAtAlleOf(groupDefinition));
@@ -444,16 +460,15 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	/**
-	 * Pattern to match one occurrence or no occurrence at all of given
-	 * character. {@link Quantifier} parameter passed will determine the regex
-	 * created.
+	 * Pattern to match one occurrence or no occurrence at all of given character.
+	 * {@link Quantifier} parameter passed will determine the regex created.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @param quantifier
-	 * @return
+	 * @param character  - character
+	 * @param quantifier - Type from enum com.itsallbinary.simplyregex.Quantifier
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator onceOrNotAtAlleOf(Quantifier quantifier, char character) {
 		regexHolder.addNext(quantifier.onceOrNotAtAlleOf(character));
@@ -461,16 +476,18 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	/**
-	 * Pattern to match one occurrence or no occurrence at all of given
-	 * character definition. {@link Quantifier} parameter passed will determine
-	 * the regex created.
+	 * Pattern to match one occurrence or no occurrence at all of given character
+	 * definition. {@link Quantifier} parameter passed will determine the regex
+	 * created.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @param quantifier
-	 * @return
+	 * @param characterDefinition - Definition of character which can be built using
+	 *                            SimpleRegex.charThatIs()
+	 * @param quantifier          - Type from enum
+	 *                            com.itsallbinary.simplyregex.Quantifier
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator onceOrNotAtAlleOf(Quantifier quantifier, CharacterDefinition characterDefinition) {
 		regexHolder.addNext(quantifier.onceOrNotAtAlleOf(characterDefinition));
@@ -482,12 +499,14 @@ public abstract class PatternAccumulator<O> {
 	 * definition. {@link Quantifier} parameter passed will determine the regex
 	 * created.
 	 * 
-	 * If input character contains any special regex characters then it will
-	 * escaped using {@link Pattern#quote(String)}
+	 * If input character contains any special regex characters then it will escaped
+	 * using {@link Pattern#quote(String)}
 	 * 
-	 * @param character
-	 * @param quantifier
-	 * @return
+	 * @param groupDefinition - Definition of group which can be built using
+	 *                        SimpleRegex.groupHaving()
+	 * @param quantifier      - Type from enum
+	 *                        com.itsallbinary.simplyregex.Quantifier
+	 * @return LinkingPatternAccumulator
 	 */
 	public LinkingPatternAccumulator onceOrNotAtAlleOf(Quantifier quantifier, GroupDefinition groupDefinition) {
 		regexHolder.addNext(quantifier.onceOrNotAtAlleOf(groupDefinition));
@@ -557,20 +576,20 @@ public abstract class PatternAccumulator<O> {
 		}
 
 		/**
-		 * This method links pattern before this method with pattern after this
-		 * method in sequence of methods.
+		 * This method links pattern before this method with pattern after this method
+		 * in sequence of methods.
 		 * 
-		 * @return
+		 * @return PatternAccumulator
 		 */
 		public PatternAccumulator<O> then() {
 			return PatternAccumulator.this;
 		}
 
 		/**
-		 * Pattern before this method will be joint with "|" i.e. OR regex
-		 * condition with the pattern after this method.
+		 * Pattern before this method will be joint with "|" i.e. OR regex condition
+		 * with the pattern after this method.
 		 * 
-		 * @return
+		 * @return PatternAccumulator
 		 */
 		public PatternAccumulator<O> or() {
 			getRegexHolder().addNext("|");
@@ -581,6 +600,8 @@ public abstract class PatternAccumulator<O> {
 			return PatternAccumulator.this.build();
 		};
 	}
+
+
 
 	private enum MultiplesType {
 		EXACT, AT_LEAST, BETWEEN;
