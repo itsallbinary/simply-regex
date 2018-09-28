@@ -1,14 +1,16 @@
 # Project Simply Regex 
 
-#### Creator - [Its All Binary](http://itsallbinary.com/project-simply-regex/)
+**Creator** - [Its All Binary](http://itsallbinary.com/project-simply-regex/)
 
-License - Apache 2.0
+**License** - Apache 2.0
 
-Releases/Dependencies - [![Maven Central](https://img.shields.io/maven-central/v/com.itsallbinary/simply-regex.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.itsallbinary%22%20AND%20a:%22simply-regex%22) Refer release page http://itsallbinary.com/project-simply-regex/simply-regex-releases/
+**Releases/Dependencies** - [![Maven Central](https://img.shields.io/maven-central/v/com.itsallbinary/simply-regex.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.itsallbinary%22%20AND%20a:%22simply-regex%22)  [![Build Status](https://travis-ci.org/itsallbinary/simply-regex.svg?branch=master)](https://travis-ci.org/itsallbinary/simply-regex)
 
-User Guide - http://itsallbinary.com/project-simply-regex/simply-regex-user-guide/
+Refer release page http://itsallbinary.com/project-simply-regex/simply-regex-releases/
 
-More Details - Refer to http://itsallbinary.com/project-simply-regex/ for more details
+**User Guide** - http://itsallbinary.com/project-simply-regex/simply-regex-user-guide/
+
+**More Details** - Refer to http://itsallbinary.com/project-simply-regex/ for more details
 
 # [Simply Regex Quick Start](http://itsallbinary.com/project-simply-regex/simply-regex-quick-start/)
 
