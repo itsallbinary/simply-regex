@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.itsallbinary</groupId>
 	<artifactId>simply-regex</artifactId>
-	<version>1.0.alpha.01</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>Simply Regex</name>
 	<description>Simple API to build complex regex patterns.</description>
 
