@@ -1,7 +1,7 @@
 language: java
 sudo: false
 
-script: sudo mvn clean package
+script: mvn clean package
 install: /bin/true
 
 
