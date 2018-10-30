@@ -1,6 +1,6 @@
-package com.itsallbinary.simplyregex;
+package com.itsallbinary.simplyregex.definition;
 
-public class GroupDefinition {
+public class GroupDefinition implements Definition {
 
 	private GroupDefinitionBuilder groupDefinitionBuilder;
 
@@ -11,7 +11,8 @@ public class GroupDefinition {
 		this.groupName = groupName;
 	}
 
-	String buildGroup() {
+	@Override
+	public String regex() {
 		if (groupName == null) {
 			return "(" + groupDefinitionBuilder.getRegexHolder().build() + ")";
 		} else {

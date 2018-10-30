@@ -1,6 +1,11 @@
 package com.itsallbinary.simplyregex;
 
-import com.itsallbinary.simplyregex.GroupDefinitionBuilder.LinkingGroupDefinitionBuilder;
+import com.itsallbinary.simplyregex.definition.CharacterDefinition;
+import com.itsallbinary.simplyregex.definition.CharacterDefinitionBuilder;
+import com.itsallbinary.simplyregex.definition.GroupDefinition;
+import com.itsallbinary.simplyregex.definition.GroupDefinitionBuilder;
+import com.itsallbinary.simplyregex.definition.StringRegexBuilder;
+import com.itsallbinary.simplyregex.definition.GroupDefinitionBuilder.LinkingGroupDefinitionBuilder;
 
 /**
  * Starting class to start building regex.

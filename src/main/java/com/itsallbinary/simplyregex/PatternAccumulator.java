@@ -3,10 +3,13 @@ package com.itsallbinary.simplyregex;
 import static com.itsallbinary.simplyregex.utils.RegexUtils.quoteIfRequired;
 
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import com.itsallbinary.simplyregex.definition.Character;
+import com.itsallbinary.simplyregex.definition.CharacterDefinition;
+import com.itsallbinary.simplyregex.definition.Definition;
+import com.itsallbinary.simplyregex.definition.GroupDefinition;
 import com.itsallbinary.simplyregex.utils.RegexUtils;
 
 /**
@@ -26,7 +29,7 @@ public abstract class PatternAccumulator<O> {
 	// private QuantifierLinkingPatternAccumulator
 	// quantifierLinkingPatternAccumulator;
 
-	PatternAccumulator(/* T builder, */ RegexHolder regexHolder) {
+	protected PatternAccumulator(/* T builder, */ RegexHolder regexHolder) {
 		this.regexHolder = regexHolder;
 		this.linkingPatternAccumulator = new LinkingPatternAccumulator();
 		// this.quantifierLinkingPatternAccumulator = new
@@ -97,7 +100,7 @@ public abstract class PatternAccumulator<O> {
 	 */
 	public LinkingPatternAccumulator oneOfTheCharacters(CharacterDefinition characterDefinition) {
 
-		regexHolder.addNext(characterDefinition.buildChar());
+		regexHolder.addNext(characterDefinition.regex());
 		return linkingPatternAccumulator;
 	}
 
@@ -121,78 +124,122 @@ public abstract class PatternAccumulator<O> {
 	}
 
 	/*
+	 * Extension methods
+	 */
+
+	public LinkingPatternAccumulator def(Definition definition) {
+
+		regexHolder.addNext(definition.regex());
+		return linkingPatternAccumulator;
+	}
+
+	/*
 	 * ----------------- Special Character wild cards ------------------
 	 */
 
 	public LinkingPatternAccumulator anyCharacter() {
 
-		regexHolder.addNext(Character.anyCharacter().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ANY_CHAR).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator anyString() {
 
-		regexHolder.addNext(Character.anyString().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ANY_STRING).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator anyDigitChar() {
 
-		regexHolder.addNext(Character.anyDigitChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ANY_DIGIT).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator anyNonDigitChar() {
 
-		regexHolder.addNext(Character.anyNonDigitChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ANY_NON_DIGIT).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator anyWhiteSpaceChar() {
 
-		regexHolder.addNext(Character.anyWhiteSpaceChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ANY_WHITE_SPACE).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator anyNonWhiteSpaceChar() {
 
-		regexHolder.addNext(Character.anyNonWhiteSpaceChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ANY_NON_WHITE_SPACE).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator anyWordChar() {
 
-		regexHolder.addNext(Character.anyWordChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ANY_WORD_CHAR).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator anyNonWordChar() {
 
-		regexHolder.addNext(Character.anyNonWordChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ANY_NON_WORD_CHAR).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator tabChar() {
 
-		regexHolder.addNext(Character.tabChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.TAB).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator newLineChar() {
 
-		regexHolder.addNext(Character.newLineChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.NEW_LINE).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator carriageReturnChar() {
 
-		regexHolder.addNext(Character.carriageReturnChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.CARRIAGE_RETURN).toString());
 		return linkingPatternAccumulator;
 	}
 
 	public LinkingPatternAccumulator formFeedChar() {
 
-		regexHolder.addNext(Character.formFeedChar().toString());
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.FORM_FEED).toString());
+		return linkingPatternAccumulator;
+	}
+
+	public LinkingPatternAccumulator spaceChar() {
+
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.SPACE_CHAR).toString());
+		return linkingPatternAccumulator;
+	}
+
+	/*
+	 * POSIX methods
+	 */
+
+	public LinkingPatternAccumulator anyLowerCaseAlphaChar() {
+
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.LOWERCASE_ALPHABET).toString());
+		return linkingPatternAccumulator;
+	}
+
+	public LinkingPatternAccumulator anyUpperCaseAlphaChar() {
+
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.UPPERCASE_ALPHABET).toString());
+		return linkingPatternAccumulator;
+	}
+
+	public LinkingPatternAccumulator anyAlphaChar() {
+
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ANYCASE_ALPHABET).toString());
+		return linkingPatternAccumulator;
+	}
+
+	public LinkingPatternAccumulator anyAlphaNumericChar() {
+
+		regexHolder.addNext(Character.wildCardChar(Character.WildCard.ALPHA_NUMERIC).toString());
 		return linkingPatternAccumulator;
 	}
 
@@ -206,7 +253,7 @@ public abstract class PatternAccumulator<O> {
 	 */
 
 	public LinkingPatternAccumulator group(GroupDefinition groupDefinition) {
-		regexHolder.addNext(groupDefinition.buildGroup());
+		regexHolder.addNext(groupDefinition.regex());
 		return linkingPatternAccumulator;
 	}
 
@@ -517,42 +564,43 @@ public abstract class PatternAccumulator<O> {
 	 * ----------------- Multiples of Methods ------------------
 	 */
 
-	public QuantifierLinkingPatternAccumulator exact(int times) {
+	public QuantifierLinkingPatternAccumulator occurancesExact(int times) {
 
 		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
 				MultiplesType.EXACT, times, Quantifier.GREEDY);
 		return quantifierLinkingPatternAccumulator;
 	}
 
-	public QuantifierLinkingPatternAccumulator exact(int times, Quantifier quantifier) {
+	public QuantifierLinkingPatternAccumulator occurancesExact(int times, Quantifier quantifier) {
 
 		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
 				MultiplesType.EXACT, times, quantifier);
 		return quantifierLinkingPatternAccumulator;
 	}
 
-	public QuantifierLinkingPatternAccumulator atleast(int times) {
+	public QuantifierLinkingPatternAccumulator occurancesAtleast(int times) {
 
 		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
 				MultiplesType.AT_LEAST, times, Quantifier.GREEDY);
 		return quantifierLinkingPatternAccumulator;
 	}
 
-	public QuantifierLinkingPatternAccumulator atleast(int times, Quantifier quantifier) {
+	public QuantifierLinkingPatternAccumulator occurancesAtleast(int times, Quantifier quantifier) {
 
 		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
 				MultiplesType.AT_LEAST, times, quantifier);
 		return quantifierLinkingPatternAccumulator;
 	}
 
-	public QuantifierLinkingPatternAccumulator between(int lowerLimit, int upperLimit) {
+	public QuantifierLinkingPatternAccumulator occurancesBetween(int lowerLimit, int upperLimit) {
 
 		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
 				MultiplesType.BETWEEN, lowerLimit, upperLimit, Quantifier.GREEDY);
 		return quantifierLinkingPatternAccumulator;
 	}
 
-	public QuantifierLinkingPatternAccumulator between(int lowerLimit, int upperLimit, Quantifier quantifier) {
+	public QuantifierLinkingPatternAccumulator occurancesBetween(int lowerLimit, int upperLimit,
+			Quantifier quantifier) {
 
 		QuantifierLinkingPatternAccumulator quantifierLinkingPatternAccumulator = new QuantifierLinkingPatternAccumulator(
 				MultiplesType.BETWEEN, lowerLimit, upperLimit, quantifier);
@@ -563,9 +611,9 @@ public abstract class PatternAccumulator<O> {
 	 * ----------------- Other Methods ------------------
 	 */
 
-	abstract O build();
+	protected abstract O build();
 
-	RegexHolder getRegexHolder() {
+	public RegexHolder getRegexHolder() {
 		return regexHolder;
 	}
 
@@ -601,8 +649,6 @@ public abstract class PatternAccumulator<O> {
 		};
 	}
 
-
-
 	private enum MultiplesType {
 		EXACT, AT_LEAST, BETWEEN;
 	}
@@ -629,18 +675,18 @@ public abstract class PatternAccumulator<O> {
 			this.quantifier = quantifier;
 		}
 
-		public LinkingPatternAccumulator occurrencesOf(char character) {
+		public LinkingPatternAccumulator of(char character) {
 			getRegexHolder().addNext(multiplesOf("" + character, true));
 			return PatternAccumulator.this.linkingPatternAccumulator;
 		}
 
-		public LinkingPatternAccumulator occurrencesOf(CharacterDefinition characterDefinition) {
-			getRegexHolder().addNext(multiplesOf(characterDefinition.buildChar(), false));
+		public LinkingPatternAccumulator of(CharacterDefinition characterDefinition) {
+			getRegexHolder().addNext(multiplesOf(characterDefinition.regex(), false));
 			return PatternAccumulator.this.linkingPatternAccumulator;
 		}
 
-		public LinkingPatternAccumulator occurrencesOf(GroupDefinition groupDefinition) {
-			getRegexHolder().addNext(multiplesOf(groupDefinition.buildGroup(), false));
+		public LinkingPatternAccumulator of(GroupDefinition groupDefinition) {
+			getRegexHolder().addNext(multiplesOf(groupDefinition.regex(), false));
 			return PatternAccumulator.this.linkingPatternAccumulator;
 		}
 

@@ -12,6 +12,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.itsallbinary.simplyregex.SimpleRegex;
+
 @RunWith(Parameterized.class)
 public class SimpleRegexCombinationTest {
 

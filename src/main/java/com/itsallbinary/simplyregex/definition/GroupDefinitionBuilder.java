@@ -1,16 +1,20 @@
-package com.itsallbinary.simplyregex;
+package com.itsallbinary.simplyregex.definition;
 
-public class GroupDefinitionBuilder extends PatternAccumulator<GroupDefinition> {
+import com.itsallbinary.simplyregex.PatternAccumulator;
+import com.itsallbinary.simplyregex.RegexHolder;
+
+public class GroupDefinitionBuilder extends PatternAccumulator<GroupDefinition>
+		implements DefinitionBuilder<GroupDefinition> {
 
 	private String groupName;
 
 	private LinkingGroupDefinitionBuilder linkingGroupDefinitionBuilder;
 
-	GroupDefinitionBuilder(RegexHolder regexHolder) {
+	public GroupDefinitionBuilder(RegexHolder regexHolder) {
 		super(regexHolder);
 	}
 
-	GroupDefinitionBuilder(String groupName, RegexHolder regexHolder) {
+	public GroupDefinitionBuilder(String groupName, RegexHolder regexHolder) {
 		super(regexHolder);
 		this.groupName = groupName;
 		this.linkingGroupDefinitionBuilder = new LinkingGroupDefinitionBuilder();
@@ -35,8 +39,13 @@ public class GroupDefinitionBuilder extends PatternAccumulator<GroupDefinition> 
 
 	}
 
-	LinkingGroupDefinitionBuilder getLinkingGroupDefinitionBuilder() {
+	public LinkingGroupDefinitionBuilder getLinkingGroupDefinitionBuilder() {
 		return linkingGroupDefinitionBuilder;
+	}
+
+	@Override
+	public GroupDefinition def() {
+		return new GroupDefinition(groupName, this);
 	}
 
 }

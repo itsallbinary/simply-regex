@@ -13,6 +13,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.itsallbinary.simplyregex.SimpleRegex;
+
 @RunWith(Parameterized.class)
 public class SimpleRegexFindTest {
 
@@ -60,11 +62,11 @@ public class SimpleRegexFindTest {
 						.oneOrMoreOf(groupHaving().exactString("abc").then().anyDigitChar().build()).build(), "abczzz",
 						false },
 
-				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2).occurrencesOf('c').build(), "acc",
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().occurancesExact(2).of('c').build(), "acc",
 						true },
-				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2).occurrencesOf('c').build(), "zcc",
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().occurancesExact(2).of('c').build(), "zcc",
 						true },
-				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().exact(2).occurrencesOf('c').build(), "ac",
+				{ SimpleRegex.regex().anywhereInText().anyWordChar().then().occurancesExact(2).of('c').build(), "ac",
 						false },
 
 		});

@@ -14,6 +14,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.itsallbinary.simplyregex.SimpleRegex;
+
 @RunWith(Parameterized.class)
 public class SimpleRegexMatchesTest {
 
@@ -38,12 +40,10 @@ public class SimpleRegexMatchesTest {
 						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "a",
 						true },
 				{ SimpleRegex.regex().startingWith()
-						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(),
-						"b",
+						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "b",
 						true },
 				{ SimpleRegex.regex().startingWith()
-						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(),
-						"c",
+						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "c",
 						true },
 				{ SimpleRegex.regex().startingWith()
 						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "p",
@@ -56,12 +56,10 @@ public class SimpleRegexMatchesTest {
 						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "a",
 						true },
 				{ SimpleRegex.regex().startingWith()
-						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(),
-						"b",
+						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "b",
 						true },
 				{ SimpleRegex.regex().startingWith()
-						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(),
-						"c",
+						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "c",
 						true },
 				{ SimpleRegex.regex().startingWith()
 						.oneOfTheCharacters(charThatIs().between('a', 'c').or().exact('p').build()).build(), "p",
@@ -196,6 +194,40 @@ public class SimpleRegexMatchesTest {
 				{ SimpleRegex.regex().startingWith().formFeedChar().build(), "&", false },
 				{ SimpleRegex.regex().startingWith().formFeedChar().build(), "r", false },
 				{ SimpleRegex.regex().startingWith().formFeedChar().build(), "8", false },
+
+				/*
+				 * POSIX
+				 */
+
+				{ SimpleRegex.regex().startingWith().anyLowerCaseAlphaChar().build(), "a", true },
+				{ SimpleRegex.regex().startingWith().anyLowerCaseAlphaChar().build(), "g", true },
+				{ SimpleRegex.regex().startingWith().anyLowerCaseAlphaChar().build(), "A", false },
+				{ SimpleRegex.regex().startingWith().anyLowerCaseAlphaChar().build(), "1", false },
+				{ SimpleRegex.regex().startingWith().anyLowerCaseAlphaChar().build(), "%", false },
+
+				{ SimpleRegex.regex().startingWith().anyUpperCaseAlphaChar().build(), "a", false },
+				{ SimpleRegex.regex().startingWith().anyUpperCaseAlphaChar().build(), "g", false },
+				{ SimpleRegex.regex().startingWith().anyUpperCaseAlphaChar().build(), "A", true },
+				{ SimpleRegex.regex().startingWith().anyUpperCaseAlphaChar().build(), "L", true },
+				{ SimpleRegex.regex().startingWith().anyUpperCaseAlphaChar().build(), "1", false },
+				{ SimpleRegex.regex().startingWith().anyUpperCaseAlphaChar().build(), "%", false },
+
+				{ SimpleRegex.regex().startingWith().anyAlphaChar().build(), "a", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaChar().build(), "g", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaChar().build(), "A", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaChar().build(), "L", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaChar().build(), "1", false },
+				{ SimpleRegex.regex().startingWith().anyAlphaChar().build(), "9", false },
+				{ SimpleRegex.regex().startingWith().anyAlphaChar().build(), "%", false },
+
+				{ SimpleRegex.regex().startingWith().anyAlphaNumericChar().build(), "a", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaNumericChar().build(), "g", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaNumericChar().build(), "A", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaNumericChar().build(), "L", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaNumericChar().build(), "1", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaNumericChar().build(), "9", true },
+				{ SimpleRegex.regex().startingWith().anyAlphaNumericChar().build(), "%", false },
+				{ SimpleRegex.regex().startingWith().anyAlphaNumericChar().build(), "&", false },
 
 				{ SimpleRegex.regex().startingWith().exactString("abc").or().exactString("def").build(), "abc", true },
 				{ SimpleRegex.regex().startingWith().exactString("abc").or().exactString("def").build(), "def", true },

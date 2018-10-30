@@ -2,7 +2,8 @@ package com.itsallbinary.simplyregex;
 
 import static com.itsallbinary.simplyregex.utils.RegexUtils.quoteIfRequired;
 
-import com.itsallbinary.simplyregex.PatternAccumulator.LinkingPatternAccumulator;
+import com.itsallbinary.simplyregex.definition.CharacterDefinition;
+import com.itsallbinary.simplyregex.definition.GroupDefinition;
 
 public enum Quantifier {
 
@@ -41,11 +42,11 @@ public enum Quantifier {
 	}
 
 	public String onceOrNotAtAlleOf(CharacterDefinition characterDefinition) {
-		return onceOrNotAtAlleOf(characterDefinition.buildChar(), false);
+		return onceOrNotAtAlleOf(characterDefinition.regex(), false);
 	}
 
 	public String onceOrNotAtAlleOf(GroupDefinition groupDefinition) {
-		return onceOrNotAtAlleOf(groupDefinition.buildGroup(), false);
+		return onceOrNotAtAlleOf(groupDefinition.regex(), false);
 	}
 
 	private String zeroOrMoreOf(String input, boolean quote) {
@@ -65,11 +66,11 @@ public enum Quantifier {
 	}
 
 	public String zeroOrMoreOf(CharacterDefinition characterDefinition) {
-		return zeroOrMoreOf(characterDefinition.buildChar(), false);
+		return zeroOrMoreOf(characterDefinition.regex(), false);
 	}
 
 	public String zeroOrMoreOf(GroupDefinition groupDefinition) {
-		return zeroOrMoreOf(groupDefinition.buildGroup(), false);
+		return zeroOrMoreOf(groupDefinition.regex(), false);
 	}
 
 	private String oneOrMoreOf(String input, boolean quote) {
@@ -89,11 +90,11 @@ public enum Quantifier {
 	}
 
 	public String oneOrMoreOf(CharacterDefinition characterDefinition) {
-		return oneOrMoreOf(characterDefinition.buildChar(), false);
+		return oneOrMoreOf(characterDefinition.regex(), false);
 	}
 
 	public String oneOrMoreOf(GroupDefinition groupDefinition) {
-		return oneOrMoreOf(groupDefinition.buildGroup(), false);
+		return oneOrMoreOf(groupDefinition.regex(), false);
 	}
 
 	String getOnceNotAtAllSuffix() {

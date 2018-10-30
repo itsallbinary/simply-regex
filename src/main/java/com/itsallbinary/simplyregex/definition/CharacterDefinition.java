@@ -1,10 +1,9 @@
-package com.itsallbinary.simplyregex;
+package com.itsallbinary.simplyregex.definition;
 
 import java.util.Arrays;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class CharacterDefinition {
+public class CharacterDefinition implements Definition {
 
 	private CharacterDefinitionBuilder characterDefinitionBuilder;
 
@@ -12,7 +11,8 @@ public class CharacterDefinition {
 		this.characterDefinitionBuilder = characterDefinitionBuilder;
 	}
 
-	String buildChar() {
+	@Override
+	public String regex() {
 		return "[" + Arrays.stream(characterDefinitionBuilder.getCharacters()).map(Character::toString)
 				.collect(Collectors.joining()) + "]";
 	}

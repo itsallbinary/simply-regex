@@ -1,10 +1,6 @@
-package com.itsallbinary.simplyregex;
+package com.itsallbinary.simplyregex.definition;
 
 import static com.itsallbinary.simplyregex.utils.RegexUtils.quoteIfRequired;
-
-import java.util.regex.Pattern;
-
-import com.itsallbinary.simplyregex.utils.RegexUtils;
 
 public class Character {
 
@@ -12,11 +8,23 @@ public class Character {
 		CHAR_RANGE, EXACT_CHAR, WILD_CARD;
 	}
 
-	private enum WildCard {
+	public enum WildCard {
 
-		ANY_CHAR("."), ANY_STRING(".*"), ANY_DIGIT("\\d"), ANY_NON_DIGIT("\\D"), ANY_WHITE_SPACE(
-				"\\s"), ANY_NON_WHITE_SPACE("\\S"), ANY_WORD_CHAR("\\w"), ANY_NON_WORD_CHAR(
-						"\\W"), TAB("\t"), NEW_LINE("\n"), CARRIAGE_RETURN("\r"), FORM_FEED("\f");
+		ANY_CHAR("."), ANY_STRING(".*"), ANY_DIGIT("\\d"), ANY_NON_DIGIT("\\D"), ANY_WHITE_SPACE("\\s"),
+		ANY_NON_WHITE_SPACE("\\S"), ANY_WORD_CHAR("\\w"), ANY_NON_WORD_CHAR("\\W"), TAB("\t"), NEW_LINE("\n"),
+		CARRIAGE_RETURN("\r"), FORM_FEED("\f"),
+
+		/*
+		 * Nice to have
+		 */
+		SPACE_CHAR(" "),
+
+		/*
+		 * POSIX;
+		 */
+
+		LOWERCASE_ALPHABET("\\p{Lower}"), UPPERCASE_ALPHABET("\\p{Upper}"), ANYCASE_ALPHABET("\\p{Alpha}"),
+		ALPHA_NUMERIC("\\p{Alnum}");
 
 		private String wildCardString;
 
@@ -66,73 +74,8 @@ public class Character {
 		return new Character(exact);
 	}
 
-	static Character anyCharacter() {
-
-		return new Character(WildCard.ANY_CHAR);
-	}
-
-	static Character anyString() {
-
-		return new Character(WildCard.ANY_STRING);
-	}
-
-	static Character anyDigitChar() {
-
-		return new Character(WildCard.ANY_DIGIT);
-
-	}
-
-	static Character anyNonDigitChar() {
-
-		return new Character(WildCard.ANY_NON_DIGIT);
-
-	}
-
-	static Character anyWhiteSpaceChar() {
-
-		return new Character(WildCard.ANY_WHITE_SPACE);
-
-	}
-
-	static Character anyNonWhiteSpaceChar() {
-
-		return new Character(WildCard.ANY_NON_WHITE_SPACE);
-
-	}
-
-	static Character anyWordChar() {
-
-		return new Character(WildCard.ANY_WORD_CHAR);
-
-	}
-
-	static Character anyNonWordChar() {
-
-		return new Character(WildCard.ANY_NON_WORD_CHAR);
-
-	}
-
-	static Character tabChar() {
-
-		return new Character(WildCard.TAB);
-
-	}
-
-	static Character newLineChar() {
-
-		return new Character(WildCard.NEW_LINE);
-
-	}
-
-	static Character carriageReturnChar() {
-
-		return new Character(WildCard.CARRIAGE_RETURN);
-
-	}
-
-	static Character formFeedChar() {
-
-		return new Character(WildCard.FORM_FEED);
+	public static Character wildCardChar(WildCard wildCard) {
+		return new Character(wildCard);
 
 	}
 

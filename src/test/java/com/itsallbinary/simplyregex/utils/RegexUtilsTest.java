@@ -12,6 +12,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.itsallbinary.simplyregex.utils.RegexUtils;
+
 @RunWith(Parameterized.class)
 public class RegexUtilsTest {
 	// "<", "(", "[", "{", "\\", "^", "-", "=", "$", "!",

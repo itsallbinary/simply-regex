@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
+import com.itsallbinary.simplyregex.SimpleRegex;
+
 public class SimpleRegexIllegalInputTest {
 
 	@Test

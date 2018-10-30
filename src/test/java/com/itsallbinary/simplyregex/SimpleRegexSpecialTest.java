@@ -14,16 +14,18 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.itsallbinary.simplyregex.SimpleRegex;
+
 @RunWith(Parameterized.class)
 public class SimpleRegexSpecialTest {
 
 	private static String EMAIL_REGEX = SimpleRegex.regex().startingWith().anyString().then().exactString("@").then()
 			.anyString().then().exactString(".").then().oneOfTheStrings("com", "org", "gov").then().endOfText().build();
 
-	private static String FIRST_M_LAST_NAME_REGEX = regex().startingWith().between(2, 20)
-			.occurrencesOf(charThatIs().anyWordChar().build()).then().anyWhiteSpaceChar().then().exact(1)
-			.occurrencesOf(charThatIs().anyWordChar().build()).then().anyWhiteSpaceChar().then().between(2, 25)
-			.occurrencesOf(charThatIs().anyWordChar().build()).then().endOfText().build();
+	private static String FIRST_M_LAST_NAME_REGEX = regex().startingWith().occurancesBetween(2, 20)
+			.of(charThatIs().anyWordChar().build()).then().anyWhiteSpaceChar().then().occurancesExact(1)
+			.of(charThatIs().anyWordChar().build()).then().anyWhiteSpaceChar().then().occurancesBetween(2, 25)
+			.of(charThatIs().anyWordChar().build()).then().endOfText().build();
 
 	@Parameters(name = "{index}: BuiltRegex = {0} | TestString = {1} | Expected = {2}")
 	public static Collection<Object[]> data() {

@@ -1,34 +1,18 @@
-package com.itsallbinary.simplyregex;
+package com.itsallbinary.simplyregex.definition;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class CharacterDefinitionBuilder {
+public class CharacterDefinitionBuilder implements DefinitionBuilder<CharacterDefinition> {
 
 	private List<Character> characters;
 
 	private LinkingCharacterDefinitionBuilder linkingCharacterDefinitionBuilder;
 
-	CharacterDefinitionBuilder() {
+	public CharacterDefinitionBuilder() {
 		characters = new ArrayList<>();
 		linkingCharacterDefinitionBuilder = new LinkingCharacterDefinitionBuilder();
 	}
-
-	CharacterDefinition build() {
-		return new CharacterDefinition(this);
-	}
-
-	/*
-	 * static String characterClass(Character... characters) { return "[" +
-	 * Arrays.stream(characters).map(Character::toString).collect(Collectors.
-	 * joining()) + "]"; }
-	 */
-
-	// public static CharacterDefinitionBuilder charThatIs() {
-	// return new CharacterDefinitionBuilder();
-	// }
 
 	public LinkingCharacterDefinitionBuilder between(char start, char end) {
 		this.characters.add(Character.charBetween(start, end));
@@ -41,62 +25,86 @@ public class CharacterDefinitionBuilder {
 	}
 
 	public LinkingCharacterDefinitionBuilder anyCharacter() {
-		this.characters.add(Character.anyCharacter());
+		this.characters.add(Character.wildCardChar(Character.WildCard.ANY_CHAR));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder anyString() {
-		this.characters.add(Character.anyString());
+		this.characters.add(Character.wildCardChar(Character.WildCard.ANY_STRING));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder anyDigitChar() {
-		this.characters.add(Character.anyDigitChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.ANY_DIGIT));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder anyNonDigitChar() {
-		this.characters.add(Character.anyNonDigitChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.ANY_NON_DIGIT));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder anyWhiteSpaceChar() {
-		this.characters.add(Character.anyWhiteSpaceChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.ANY_WHITE_SPACE));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder anyNonWhiteSpaceChar() {
-		this.characters.add(Character.anyNonWhiteSpaceChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.ANY_NON_WHITE_SPACE));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder anyWordChar() {
-		this.characters.add(Character.anyWordChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.ANY_WORD_CHAR));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder anyNonWordChar() {
-		this.characters.add(Character.anyNonWordChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.ANY_NON_WORD_CHAR));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder tabChar() {
-		this.characters.add(Character.tabChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.TAB));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder newLineChar() {
-		this.characters.add(Character.newLineChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.NEW_LINE));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder carriageReturnChar() {
-		this.characters.add(Character.carriageReturnChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.CARRIAGE_RETURN));
 		return linkingCharacterDefinitionBuilder;
 	}
 
 	public LinkingCharacterDefinitionBuilder formFeedChar() {
-		this.characters.add(Character.formFeedChar());
+		this.characters.add(Character.wildCardChar(Character.WildCard.FORM_FEED));
+		return linkingCharacterDefinitionBuilder;
+	}
+
+	/*
+	 * POSIX character methods
+	 */
+
+	public LinkingCharacterDefinitionBuilder anyLowerCaseAlphaChar() {
+		this.characters.add(Character.wildCardChar(Character.WildCard.LOWERCASE_ALPHABET));
+		return linkingCharacterDefinitionBuilder;
+	}
+
+	public LinkingCharacterDefinitionBuilder anyUpperCaseAlphaChar() {
+		this.characters.add(Character.wildCardChar(Character.WildCard.UPPERCASE_ALPHABET));
+		return linkingCharacterDefinitionBuilder;
+	}
+
+	public LinkingCharacterDefinitionBuilder anyAlphaChar() {
+		this.characters.add(Character.wildCardChar(Character.WildCard.ANYCASE_ALPHABET));
+		return linkingCharacterDefinitionBuilder;
+	}
+
+	public LinkingCharacterDefinitionBuilder anyAlphaNumericChar() {
+		this.characters.add(Character.wildCardChar(Character.WildCard.ALPHA_NUMERIC));
 		return linkingCharacterDefinitionBuilder;
 	}
 
@@ -107,8 +115,8 @@ public class CharacterDefinitionBuilder {
 	public class LinkingCharacterDefinitionBuilder {
 
 		/**
-		 * CharacterDefinition before this method will be joint with "|" i.e. OR
-		 * regex condition with the CharacterDefinition after this method.
+		 * CharacterDefinition before this method will be joint with "|" i.e. OR regex
+		 * condition with the CharacterDefinition after this method.
 		 * 
 		 * @return
 		 */
@@ -117,8 +125,13 @@ public class CharacterDefinitionBuilder {
 		}
 
 		public CharacterDefinition build() {
-			return CharacterDefinitionBuilder.this.build();
+			return CharacterDefinitionBuilder.this.def();
 		};
+	}
+
+	@Override
+	public CharacterDefinition def() {
+		return new CharacterDefinition(this);
 	}
 
 }
