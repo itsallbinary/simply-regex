@@ -10,6 +10,8 @@ Refer release page http://itsallbinary.com/project-simply-regex/simply-regex-rel
 
 **User Guide** - http://itsallbinary.com/project-simply-regex/simply-regex-user-guide/
 
+**Extension Library** - https://github.com/itsallbinary/simply-regex-datatype
+
 **More Details** - Refer to http://itsallbinary.com/project-simply-regex/ for more details
 
 # [Simply Regex Quick Start](http://itsallbinary.com/project-simply-regex/simply-regex-quick-start/)
